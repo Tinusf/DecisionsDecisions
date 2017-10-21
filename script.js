@@ -110,10 +110,10 @@ function makeKids(person) {
 		if (person.gender != personToMakeKidsWith.gender) {
 			appendTextConsole("Successfully made a kid.")
 			addPerson();
-			personToMakeKidsWith = null;
 		} else {
 			appendTextConsole("Sorry that is impossible.")
 		}
+		personToMakeKidsWith = null;
 	}
 }
 
