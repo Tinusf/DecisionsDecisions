@@ -230,15 +230,15 @@ function loadProgress() {
 	}
 
 	let loadedPersons = localStorage.getItem("persons");
-	if (loadedPersons !== null) {
+	if (loadedPersons != null) { // Hvis du aldri har lagret noe.
 		loadedPersons = loadedPersons.replace(new RegExp(",null", 'g'), "");
 		appendTextConsole("Loaded persons from file.");
-		persons = JSON.parse(loadedPersons);
-
-		persons.forEach(function(element) {
-			makePersonDiv(element);
-		});
-
+		if (loadedPersons != "[null]") { // Hvis du noen gang har lagret en null.
+			persons = JSON.parse(loadedPersons);
+			persons.forEach(function(element) {
+				makePersonDiv(element);
+			});
+		}
 	} else {
 		appendTextConsole("Could not find persons file.");
 	}
