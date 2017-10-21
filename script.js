@@ -5,7 +5,7 @@ let persons = [];
 
 let date = new Date();
 showDate();
-startTimer();
+startTimer(5);
 
 function addPerson() {
 	const personInfoChangable = ["Money", "Intelligence", "Happiness", "Age"];
@@ -46,12 +46,23 @@ function addPerson() {
 		option.innerHTML = options[i];
 		select.appendChild(option);
 	}
-
-	
 	div.appendChild(select);
+
+	const button = document.createElement("button");
+	button.className = "btn btn-danger";
+	button.onclick = function () { killSelf(person); };
+
+	const buttonText = document.createTextNode("Kill yourself.");
+	button.appendChild(buttonText);
+	div.appendChild(button);
+	
 	allPersons.appendChild(div);
 	persons.push(person);
 	updateValueForPerson(person);
+}
+
+function killSelf(person) {
+	person.div.remove();
 }
 
 function updateValueForPerson(person) {
@@ -80,8 +91,6 @@ class Person {
 		this.div;
 	}
 	get getAge() {
-		console.log(date);
-		console.log(this.birthday);
 		let nowYear = date.getFullYear();
 		let pastYear = this.birthday.getFullYear();
 		let age = nowYear - pastYear;
@@ -99,9 +108,10 @@ function nextDay() {
 	updateValues();
 }
 
-function startTimer() {
-	let bar = document.getElementById("progress"),
-	time = 0, max = 5,
+function startTimer(secondsInADay) {
+	let bar = document.getElementById("progress");
+	time = 0;
+	max = secondsInADay;
 	int = setInterval(function() {
 		if (time - 1 == max) {
 			nextDay();
