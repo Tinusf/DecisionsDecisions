@@ -1,6 +1,6 @@
 # DecisionsDecisions
-A stupid idle game thingy.
-[Try it yourself at www.tinusf.com/decisions](http://www.tinusf.com/decisions/)
+A stupid idle game thingy.   
+Try it yourself at [www.tinusf.com/decisions](http://www.tinusf.com/decisions/)
 
 # TODOS:
 - Push progress, button and date to the bottom.
