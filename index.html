@@ -17,19 +17,25 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12 text-center">
-				<button class="btn btn-primary" type="button" onclick="addPerson()">
+				<div id="consoleDiv" class="col-xs-6">
+					<textarea id="console" readonly=""></textarea>
+				</div>
+				<div id="btnDateProgress" class="col-xs-6">
+					<button class="btn btn-primary" type="button" onclick="addPerson()">
 					Add a person
-				</button>
-				<h4 id="date">xx-xx-xxxx</h4>
-				<h4 class="progress-label">Next day</h4>
-				<div class="progress">
-					<div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-						<span class="sr-only">0% Complete</span>
+					</button>
+					<h4 id="date">xx-xx-xxxx</h4>
+					<h4 class="progress-label">Next day</h4>
+					<div class="progress">
+						<div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+							<span class="sr-only">0% Complete</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<script src="script.js"></script>
 </body>
 </html>

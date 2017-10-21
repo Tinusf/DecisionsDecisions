@@ -1,11 +1,13 @@
 html, body {
 	height: 100%;
 	overflow: hidden;
+	background-color: #383838;
+	color: white;
 }
 
 #allPersons {
+	color: black;
 	position: relative;
-	background-color: darkgrey;
 	min-height: 50%;
 	max-height: 75%;
 	overflow-y: scroll;
@@ -17,6 +19,17 @@ html, body {
 	height: 300px;
 	background-color: white;
 	float: left;
+}
+
+#consoleDiv {
+	height: 125px;
+}
+
+#console {
+	text-align: left;
+	background-color: #383838;
+	height: 100%;
+	width: 100%;
 }
 
 .male {

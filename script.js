@@ -8,13 +8,15 @@ let date = new Date();
 showDate();
 startTimer(5);
 
+appendTextConsole("Welcome to Decisions Decisions.");
+
 function addPerson() {
 	const personInfoChangable = ["Money", "Intelligence", "Happiness", "Age"];
 	const chosenName = prompt("Please enter your name", "Tinus"); //TODO: si hva slags kjønn det ble og endre farge ved forskjellig kjønn. ha en "other" kjønn?
 	let person = new Person(chosenName);
 
 	const div = document.createElement("div");
-	div.className = "person col-sm-6 col-xs-12";
+	div.className = "person col-lg-2 col-md-3 col-sm-4 col-xs-12";
 
 	const randomNumber = Math.floor(Math.random() * 2);
 	if (randomNumber == 0) {
@@ -80,6 +82,7 @@ function addPerson() {
 	allPersons.appendChild(div);
 	persons.push(person);
 	updateValueForPerson(person);
+	appendTextConsole("You have added a new person: " + person.name);
 }
 
 function makeKids(person) {
@@ -87,16 +90,17 @@ function makeKids(person) {
 		personToMakeKidsWith = person;
 		if (person.gender == "male") {
 			//TODO: lag kulere alert med bootstrap tingen.
-			alert(person.name + " chosen, please choose a female to mate with.")
+			appendTextConsole(person.name + " chosen, please choose a female to mate with.")
 		} else {
-			alert(person.name + " chosen, please choose a male to mate with.")
+			appendTextConsole(person.name + " chosen, please choose a male to mate with.")
 		}
 	} else {
 		if (person.gender != personToMakeKidsWith.gender) {
+			appendTextConsole("Successfully made a kid.")
 			addPerson();
 			personToMakeKidsWith = null;
 		} else {
-			alert("Sorry that is impossible.")
+			appendTextConsole("Sorry that is impossible.")
 		}
 	}
 }
@@ -175,6 +179,12 @@ function startTimer(secondsInADay) {
 			bar.style.width = Math.floor(100 * time++ / max) + '%';
 		}
 	}, 1000);
+}
+
+function appendTextConsole(text) {
+	const console = document.getElementById("console");
+	console.value += text + "\n";
+	console.scrollTop = console.scrollHeight;
 }
 
 function hax() {
