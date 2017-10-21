@@ -245,5 +245,7 @@ function loadProgress() {
 }
 
 function deleteProgress() {
-
+	localStorage.removeItem("date");
+	localStorage.removeItem("persons");
+	location.reload();
 }
