@@ -2,6 +2,7 @@
 const allPersons = document.getElementById("allPersons");
 let options = ["Work", "Education", "Gamble", "Socialise"]
 let persons = [];
+let personToMakeKidsWith;
 
 let date = new Date();
 showDate();
@@ -14,6 +15,15 @@ function addPerson() {
 
 	const div = document.createElement("div");
 	div.className = "person col-sm-6 col-xs-12";
+
+	const randomNumber = Math.floor(Math.random() * 2);
+	if (randomNumber == 0) {
+		person.gender = "male";
+		div.className += " male";
+	} else {
+		person.gender = "female";
+		div.className += " female";
+	}
 
 	person.div = div;
 
@@ -53,17 +63,42 @@ function addPerson() {
 	}
 	div.appendChild(select);
 
-	const button = document.createElement("button");
-	button.className = "btn btn-danger";
-	button.onclick = function () { killSelf(person); };
+	const buttonSuicide = document.createElement("button");
+	buttonSuicide.className = "btn btn-danger";
+	buttonSuicide.onclick = function () { killSelf(person); };
+	const buttonSuicideText = document.createTextNode("Kill yourself.");
+	buttonSuicide.appendChild(buttonSuicideText);
+	div.appendChild(buttonSuicide);
 
-	const buttonText = document.createTextNode("Kill yourself.");
-	button.appendChild(buttonText);
-	div.appendChild(button);
+	const buttonMakeKids = document.createElement("button");
+	buttonMakeKids.className = "btn btn-primary";
+	buttonMakeKids.onclick = function () { makeKids(person); };
+	const buttonMakeKidsText = document.createTextNode("Make kids.");
+	buttonMakeKids.appendChild(buttonMakeKidsText);
+	div.appendChild(buttonMakeKids);
 	
 	allPersons.appendChild(div);
 	persons.push(person);
 	updateValueForPerson(person);
+}
+
+function makeKids(person) {
+	if (personToMakeKidsWith == null) {
+		personToMakeKidsWith = person;
+		if (person.gender == "male") {
+			//TODO: lag kulere alert med bootstrap tingen.
+			alert(person.name + " chosen, please choose a female to mate with.")
+		} else {
+			alert(person.name + " chosen, please choose a male to mate with.")
+		}
+	} else {
+		if (person.gender != personToMakeKidsWith.gender) {
+			addPerson();
+			personToMakeKidsWith = null;
+		} else {
+			alert("Sorry that is impossible.")
+		}
+	}
 }
 
 function killSelf(person) {
@@ -106,7 +141,7 @@ class Person {
 		this.money = 0;
 		this.intelligence = 0;
 		this.happiness = 0;
-		this.gender = "male";
+		this.gender;
 		this.birthday;
 		this.div;
 	}
