@@ -62,6 +62,8 @@ function addPerson() {
 }
 
 function killSelf(person) {
+	i = persons.indexOf(person);
+	delete persons[i];
 	person.div.remove();
 }
 
