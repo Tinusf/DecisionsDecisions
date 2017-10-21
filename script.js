@@ -229,8 +229,9 @@ function loadProgress() {
 		appendTextConsole("Could not find date file.");
 	}
 
-	const loadedPersons = localStorage.getItem("persons");
+	let loadedPersons = localStorage.getItem("persons");
 	if (loadedPersons !== null) {
+		loadedPersons = loadedPersons.replace(new RegExp(",null", 'g'), "");
 		appendTextConsole("Loaded persons from file.");
 		persons = JSON.parse(loadedPersons);
 
@@ -241,9 +242,6 @@ function loadProgress() {
 	} else {
 		appendTextConsole("Could not find persons file.");
 	}
-	
-
-	//persons = localStorage.getItem("persons");
 }
 
 function deleteProgress() {
