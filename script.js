@@ -13,7 +13,7 @@ function addPerson() {
 	let person = new Person(chosenName);
 
 	const div = document.createElement("div");
-	div.className = "person col-sm-5 col-xs-12";
+	div.className = "person col-sm-6 col-xs-12";
 
 	person.div = div;
 

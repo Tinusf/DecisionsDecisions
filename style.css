@@ -7,11 +7,13 @@ html, body {
 	position: relative;
 	background-color: darkgrey;
 	min-height: 50%;
-	max-height: 70%;
+	max-height: 75%;
 	overflow-y: scroll;
 }
 .person {
-	margin: 3%;
+	-webkit-box-shadow:inset 0px 0px 0px 5px black;
+	-moz-box-shadow:inset 0px 0px 0px 5px black;
+	box-shadow:inset 0px 0px 0px 5px black;
 	height: 300px;
 	background-color: white;
 	float: left;
