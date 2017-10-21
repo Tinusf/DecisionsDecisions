@@ -13,27 +13,31 @@ function addPerson() {
 	let person = new Person(chosenName);
 
 	const div = document.createElement("div");
-	div.className = "person col-xs-3";
+	div.className = "person col-sm-5 col-xs-12";
 
 	person.div = div;
 
 	const h4 = document.createElement("h4");
-	h4.innerHTML = person.name;
+	const h4Text = document.createTextNode(person.name);
+	h4.appendChild(h4Text);
 	div.appendChild(h4);
 
 	const genderP = document.createElement("p");
-	genderP.innerHTML = "Gender: " + person.gender;
+	const genderText = document.createTextNode("Gender: " + person.gender);
+	genderP.appendChild(genderText);
 	div.appendChild(genderP);
 
 	const birthdayP = document.createElement("p");
-	birthdayP.innerHTML = "Birthday: " + date.toLocaleDateString("nb-NO"); 
+	const birthdayText = document.createTextNode("Birthday: " + date.toLocaleDateString("nb-NO"))
+	birthdayP.appendChild(birthdayText);
 	div.appendChild(birthdayP);
 	person.birthday = new Date(date.valueOf());
 
 
 	for (let i = 0; i < personInfoChangable.length; i++) {
 		const p = document.createElement("p");
-		p.innerHTML = personInfoChangable[i] + ": ";
+		pText = document.createTextNode(personInfoChangable[i] + ": ");
+		p.appendChild(pText);
 		div.appendChild(p);
 	}
 
@@ -43,7 +47,8 @@ function addPerson() {
 
 	for (var i = 0; i < options.length; i++) {
 		const option = document.createElement("option");
-		option.innerHTML = options[i];
+		optionText = document.createTextNode(options[i]);
+		option.appendChild(optionText);
 		select.appendChild(option);
 	}
 	div.appendChild(select);
@@ -69,6 +74,19 @@ function killSelf(person) {
 
 function updateValueForPerson(person) {
 	const childNodes = person.div.childNodes;
+	
+	/*const moneyText = document.createTextNode("Money: " + person.money);
+	childNodes[3] = moneyText;
+
+	const intText = document.createTextNode("Intelligence: " + person.intelligence);
+	childNodes[4] = intText;
+
+	const happyText = document.createTextNode("Happiness: " + person.happiness);
+	childNodes[5] = happyText;
+
+	const ageText = document.createTextNode("Age: " + person.getAge);
+	childNodes[6] = ageText;*/ //TODO: fiks noe lignende slik og ikke bruk innerHTML.
+
 	childNodes[3].innerHTML = "Money: " + person.money;
 	childNodes[4].innerHTML = "Intelligence: " + person.intelligence;
 	childNodes[5].innerHTML = "Happiness: " + person.happiness;
@@ -122,4 +140,10 @@ function startTimer(secondsInADay) {
 			bar.style.width = Math.floor(100 * time++ / max) + '%';
 		}
 	}, 1000);
+}
+
+function hax() {
+	date.setDate(date.getDate() + 365);
+	showDate();
+	updateValues();
 }

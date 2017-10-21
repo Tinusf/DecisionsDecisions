@@ -1,15 +1,33 @@
 html, body {
-    height: 100%;
+	height: 100%;
+	overflow: hidden;
 }
+
 #allPersons {
 	position: relative;
 	background-color: darkgrey;
-	height: 500px;
+	min-height: 50%;
+	max-height: 70%;
 	overflow-y: scroll;
 }
 .person {
-	margin: 2%;
+	margin: 3%;
 	height: 300px;
 	background-color: white;
 	float: left;
+}
+
+.male {
+	background-color: lightblue;
+}
+
+.female {
+	background-color: lightpink;
+}
+
+@media (max-width: 576px) {
+	/* For små skjermer. */
+	#allPersons {
+		max-height: 60%;
+	}
 }
