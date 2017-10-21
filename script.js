@@ -187,7 +187,7 @@ function calculateEdu(person, daysChanged) {
 	intelligenceRnd = Math.floor(Math.random() * 2);
 	happinessRnd = Math.floor(Math.random() * 2);
 	if (age < 6) {
-		outputString = "Little " + person.name + " went to kindergarden";
+		outputString = "Little " + person.name + " went to kindergarten";
 	} else if (age < 13) {
 		outputString ="The young " + person.name + " went to elementary school";
 	} else if (age < 16) {
