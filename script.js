@@ -13,17 +13,22 @@ loadProgress();
 showDate();
 
 function addPerson() {
-	const chosenName = prompt("Please enter your name", "Tinus"); //TODO: si hva slags kjønn det ble og endre farge ved forskjellig kjønn. ha en "other" kjønn?
+	let gender;
+	let chosenName;
+	const randomNumber = Math.floor(Math.random() * 2);
+
+	if (randomNumber == 0) {
+		gender = "male";
+		chosenName = prompt("Please name your new little boy", "Tinus");
+	} else {
+		gender = "female";
+		chosenName = prompt("Please name your new little girl", "girlname");
+	}
 	if (chosenName == null) {
 		return;
 	}
-	let person = new Person(chosenName);
-	const randomNumber = Math.floor(Math.random() * 2);
-	if (randomNumber == 0) {
-		person.gender = "male";
-	} else {
-		person.gender = "female";
-	}
+	let person = new Person(chosenName, gender);
+
 	person.birthday = new Date(date.valueOf()).getTime();
 	persons.push(person);
 	makePersonDiv(person);
@@ -107,7 +112,7 @@ function makeKids(person) {
 		}
 	} else {
 		if (person.gender != personToMakeKidsWith.gender) {
-			if (calculateAge(person) >= 16 && calculateAge(personToMakeKidsWith) >= 16) {
+			if (person.age >= 16 && personToMakeKidsWith.age >= 16) {
 				appendTextConsole("Successfully made a kid.")
 				addPerson();
 			} else {
@@ -128,14 +133,13 @@ function killSelf(person) {
 }
 
 function isAdult(person) {
-	return calculateAge(person) >= 18;
+	return person.age >= 18;
 }
 
 function updateValueForPerson(person, daysChanged) {
 	calculateAge(person);
 	const childNodes = person.div.childNodes;
 	const activity = childNodes[7].value;
-	const adult = isAdult(person);
 	if (daysChanged > 0) {
 		switch(activity) {
 			case "Education": {
@@ -330,13 +334,13 @@ function updateValues(daysChanged) {
 }
 
 class Person {
-	constructor(name) {
+	constructor(name, gender) {
 		//TODO lag startverdier random;
 		this.name = name;
 		this.money = 0;
 		this.intelligence = 0;
 		this.happiness = 0;
-		this.gender;
+		this.gender = gender;
 		this.birthday;
 		this.div;
 		this.age = 0;
