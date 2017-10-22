@@ -230,7 +230,7 @@ function calculateWork(person, daysChanged) {
 		let moneyRnd = 0;
 		const wordToUse = heOrShe(person);
 		if (person.intelligence < 3500) {
-			appendTextConsole(person.name + " goes to work at McDonald " + wordToUse + " feels that " + wordToUse + " is getting dumber every day.");
+			appendTextConsole(person.name + " goes to work at McDonald's " + wordToUse + " feels that " + wordToUse + " is getting dumber every day.");
 			intelligenceRnd = -Math.floor(Math.random() * 2);
 			moneyRnd = Math.floor(Math.random() * 2) +1;
 			happinessRnd = -Math.floor(Math.random() * 2) + 1;
@@ -241,6 +241,11 @@ function calculateWork(person, daysChanged) {
 			appendTextConsole(person.name + " goes to work as a programmer, " + wordToUse + " loves it.");
 			moneyRnd = Math.floor(Math.random() * 5) +1;
 			happinessRnd = Math.floor(Math.random() * 2) + 1;
+		} else {
+			appendTextConsole(person.name + " goes to work as a university professor, " + wordToUse + " loves it.");
+			moneyRnd = Math.floor(Math.random() * 4) +1;
+			happinessRnd = Math.floor(Math.random() * 3) + 1;
+			intelligenceRnd = Math.floor(Math.random() * 2);
 		}
 		person.intelligence += intelligenceRnd * daysChanged;
 		person.money += moneyRnd * daysChanged;
@@ -271,7 +276,7 @@ function calculateGamble(person, daysChanged) {
 		person.money += moneyLostOrGained * daysChanged;
 	} else {
 		const finedAmount = -Math.floor(Math.random() * 100) + 1;
-		appendTextConsole(person.name + " tried to get into a casino whilst underage and got fined" + finedAmount + "$");
+		appendTextConsole(person.name + " tried to get into a casino whilst underage and got fined " + -finedAmount + "$");
 		person.money += finedAmount * daysChanged;
 	}
 }
