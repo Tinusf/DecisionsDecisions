@@ -281,9 +281,8 @@ function calculateSocialise(person, daysChanged) {
 	let moneyRnd = 0;
 
 	if (age < 5) {
-		appendTextConsole("Little " + person.name + " is playing and having fun.");
-		person.happiness += (Math.floor(Math.random() * 2) + 1) * daysChanged;
-		return;
+		outputString = "Little " + person.name + " is playing and having fun.";
+		happinessRnd = (Math.floor(Math.random() * 2) + 1);
 	} else if (age < 13) {
 		outputString = "The young " + person.name + " is socialising"
 		if (Math.floor(Math.random() * 2) == 0) {
