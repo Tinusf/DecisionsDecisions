@@ -132,6 +132,7 @@ function isAdult(person) {
 }
 
 function updateValueForPerson(person, daysChanged) {
+	calculateAge(person);
 	const childNodes = person.div.childNodes;
 	const activity = childNodes[7].value;
 	const adult = isAdult(person);
@@ -161,7 +162,7 @@ function updateValueForPerson(person, daysChanged) {
 	childNodes[3].innerHTML = "Money: " + person.money + "$";
 	childNodes[4].innerHTML = "Intelligence: " + person.intelligence;
 	childNodes[5].innerHTML = "Happiness: " + person.happiness;
-	childNodes[6].innerHTML = "Age: " + calculateAge(person);
+	childNodes[6].innerHTML = "Age: " + person.age;
 }
 
 function heOrShe(person) {
@@ -185,18 +186,17 @@ function hisOrHer(person) {
 }
 
 function calculateEdu(person, daysChanged) {
-	const age = calculateAge(person);
 	let randomNumber = 0;
 	let outputString = "";
 	intelligenceRnd = Math.floor(Math.random() * 2);
 	happinessRnd = Math.floor(Math.random() * 2);
-	if (age < 6) {
+	if (person.age < 6) {
 		outputString = "Little " + person.name + " went to kindergarten";
-	} else if (age < 13) {
+	} else if (person.age < 13) {
 		outputString ="The young " + person.name + " went to elementary school";
-	} else if (age < 16) {
+	} else if (person.age < 16) {
 		outputString = "The teen " + person.name + " went to middle school";
-	} else if (age < 19) {
+	} else if (person.age < 19) {
 		outputString = "The young adult " + person.name + " went to high school";
 	} else {
 		outputString = "The wise " + person.name + " went to university";
@@ -273,17 +273,16 @@ function calculateGamble(person, daysChanged) {
 }
 
 function calculateSocialise(person, daysChanged) {
-	const age = calculateAge(person);
 	let outputString = "" ;
 
 	let intelligenceRnd = 0;
 	let happinessRnd = 0;
 	let moneyRnd = 0;
 
-	if (age < 5) {
+	if (person.age < 5) {
 		outputString = "Little " + person.name + " is playing and having fun.";
 		happinessRnd = (Math.floor(Math.random() * 2) + 1);
-	} else if (age < 13) {
+	} else if (person.age < 13) {
 		outputString = "The young " + person.name + " is socialising"
 		if (Math.floor(Math.random() * 2) == 0) {
 			outputString += " and getting peer pressured to drink alcohol. " + heOrShe(person) + " is losing intelligence and money";
@@ -293,7 +292,7 @@ function calculateSocialise(person, daysChanged) {
 			happinessRnd = Math.floor(Math.random() * 2);
 			outputString += ".";
 		}
-	} else if (age < 18) {
+	} else if (person.age < 18) {
 		outputString = "The teen " + person.name + " is socialising";
 		if (Math.floor(Math.random() * 3) == 0) {
 			outputString += " and getting peer pressured to drink alcohol. " + heOrShe(person) + " is losing intelligence and money";
@@ -340,16 +339,21 @@ class Person {
 		this.gender;
 		this.birthday;
 		this.div;
+		this.age = 0;
 	}
 }
 
 function calculateAge(person) {
-	//TODO: ikke vær lat, fiks denne ordentlig.
-	const nowYear = date.getFullYear();
+	const prevAge = person.age;
+
 	const birthdayDate =  new Date(parseInt(person.birthday, 10));
-	const pastYear = birthdayDate.getFullYear();
-	const age = nowYear - pastYear;
-	return age;
+	const diff = date.getTime() - birthdayDate.getTime();
+
+	const newAge = Math.floor(diff / (365*1000*60*60*24));
+	if (newAge !== prevAge) {
+		appendTextConsole(person.name + " just turned " +newAge + " congratulations!");
+	}
+	person.age = newAge;
 }
 
 function showDate() {
@@ -379,7 +383,7 @@ function startTimer(secondsInADay) {
 
 function appendTextConsole(text) {
 	const console = document.getElementById("console");
-	console.value += text + "\n";
+	console.value += "\n" + text;
 	console.scrollTop = console.scrollHeight;
 }
 
