@@ -107,8 +107,12 @@ function makeKids(person) {
 		}
 	} else {
 		if (person.gender != personToMakeKidsWith.gender) {
-			appendTextConsole("Successfully made a kid.")
-			addPerson();
+			if (calculateAge(person) >= 16 && calculateAge(personToMakeKidsWith) >= 16) {
+				appendTextConsole("Successfully made a kid.")
+				addPerson();
+			} else {
+				appendTextConsole("Grow up kids.");
+			}
 		} else {
 			appendTextConsole("Sorry that is impossible.")
 		}
@@ -269,7 +273,56 @@ function calculateGamble(person, daysChanged) {
 }
 
 function calculateSocialise(person, daysChanged) {
+	const age = calculateAge(person);
+	let outputString = "" ;
 
+	let intelligenceRnd = 0;
+	let happinessRnd = 0;
+	let moneyRnd = 0;
+
+	if (age < 5) {
+		appendTextConsole("Little " + person.name + " is playing and having fun.");
+		person.happiness += (Math.floor(Math.random() * 2) + 1) * daysChanged;
+		return;
+	} else if (age < 13) {
+		outputString = "The young " + person.name + " is socialising"
+		if (Math.floor(Math.random() * 2) == 0) {
+			outputString += " and getting peer pressured to drink alcohol. " + heOrShe(person) + " is losing intelligence and money";
+			intelligenceRnd = -Math.floor(Math.random() * 2) + 1;
+			moneyRnd = -Math.floor(Math.random() * 2) + 1;
+		} else {
+			happinessRnd = Math.floor(Math.random() * 2);
+			outputString += ".";
+		}
+	} else if (age < 18) {
+		outputString = "The teen " + person.name + " is socialising";
+		if (Math.floor(Math.random() * 3) == 0) {
+			outputString += " and getting peer pressured to drink alcohol. " + heOrShe(person) + " is losing intelligence and money";
+			intelligenceRnd = -Math.floor(Math.random() * 2) + 1;
+			moneyRnd = -Math.floor(Math.random() * 2) + 1;
+		} else {
+			outputString += " and having innocent fun."
+			happinessRnd = Math.floor(Math.random() * 2);
+		}
+	} else {
+		outputString = "The adult " + person.name + " is socialising. ";
+		if (Math.floor(Math.random() * 50) == 0) {
+			if (person.gender == "male") {
+				outputString += "He even found a girlfriend! This makes him super-happy.";
+			} else {
+				outputString += "She even found a boyfriend! This makes her super-happy.";
+			}
+			person.happiness += 500;			
+		} else {
+			happinessRnd = Math.floor(Math.random() * 6) - 3;
+			moneyRnd = -Math.floor(Math.random() * 6);
+			intelligenceRnd = -Math.floor(Math.random() * 2);
+		}
+	}
+	appendTextConsole(outputString);
+	person.happiness += happinessRnd * daysChanged;
+	person.intelligence += intelligenceRnd * daysChanged;
+	person.money += moneyRnd * daysChanged;
 }
 
 function updateValues(daysChanged) {
@@ -292,6 +345,7 @@ class Person {
 }
 
 function calculateAge(person) {
+	//TODO: ikke vær lat, fiks denne ordentlig.
 	const nowYear = date.getFullYear();
 	const birthdayDate =  new Date(parseInt(person.birthday, 10));
 	const pastYear = birthdayDate.getFullYear();
