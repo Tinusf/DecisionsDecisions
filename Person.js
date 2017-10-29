@@ -9,6 +9,7 @@ class Person {
 		this.birthday;
 		this.div;
 		this.age = 0;
+		this.activities = ["Kindergarten", "Cry", "Poop", "Crawl"];
 	}
 }
 
@@ -20,7 +21,8 @@ function calculateAge(person) {
 
 	const newAge = Math.floor(diff / (365*1000*60*60*24));
 	if (newAge !== prevAge) {
-		appendTextConsole(person.name + " just turned " +newAge + " congratulations!");
+		updateLegalActivities(person);
+		appendTextConsole(person.name + " just turned " + newAge + " congratulations!");
 	}
 	person.age = newAge;
 }

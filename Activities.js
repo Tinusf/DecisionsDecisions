@@ -1,3 +1,59 @@
+function updateLegalActivities(person) {
+	legalActivities = []
+	if (person.age < 2) {
+		legalActivities.push("Kindergarten", "Cry", "Poop", "Crawl");
+	} else if (person.age < 6) {
+		legalActivities.push("Kindergarten", "Play Video Games", "Walk", "Annoy Parents");
+	} else if (person.age < 13) {
+		legalActivities.push("Elementary School", "Play Video Games", "Annoy Parents", "Stupid Shit");
+	} else if (person.age < 16) {
+		legalActivities.push("Middle School", "Socialise", "Play Video Games", "Annoy Parents", "Drugs", "Stupid Shit");
+	} else if (person.age < 19) {
+		legalActivities.push("High School", "Work", "Socialise", "Play Video Games", "Annoy Parents", "Gamle", "Drugs", "Stupid Shit");
+	} else {
+		legalActivities.push("Higher Education", "Work", "Socialise", "Play Video Games", "Gamle", "Drugs", "Stupid Shit");
+	}
+
+	person.activities = legalActivities;
+	updateActivitySelect(person);
+}
+
+function updateActivitySelect(person) {
+	const select = person.div.childNodes[7];
+	// TODO: Make this something other than just the 7'th element.
+	while (select.hasChildNodes()) {
+		select.removeChild(select.lastChild);
+		// Remove all the old activities.
+	}
+	for (let i = 0; i < person.activities.length; i++) {
+		const option = document.createElement("option");
+		optionText = document.createTextNode(person.activities[i]);
+		option.appendChild(optionText);
+		select.appendChild(option);
+	}
+}
+
+function calcKindergarten(person, daysChanged) {
+	calcEducation(person, daysChanged);
+}
+
+function calcCrawl(person, daysChanged) {
+	appendTextConsole("Little " + person.name + " is crawling around like a little baby.");
+}
+
+function calcCry(person, daysChanged) {
+	appendTextConsole("Fantastic, " + person.name + " has been crying all day.");
+}
+
+function calcPoop(person, daysChanged) {
+	appendTextConsole("Why doesn't " + person.name + " ever stop pooping? I don't understand. And why does this make " + heOrShe(person) + " happier?");
+}
+
+function calcWalk(person, daysChanged) {
+	appendTextConsole(person.name + " is finally walking and " + heOrShe(person) + " is getting pretty good.");
+}
+
+
 function calcEducation(person, daysChanged) {
 	let randomNumber = 0;
 	let outputString = "";

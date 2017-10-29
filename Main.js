@@ -1,6 +1,5 @@
 //TODO: lag en date som øker med en dag hver gang progress bar er 100%
 const allPersons = document.getElementById("allPersons");
-let options = ["Education", "Work", "Gamble", "Socialise"]
 let persons = [];
 let personToMakeKidsWith;
 let savingEnabled = true;
@@ -30,10 +29,10 @@ function addPerson(spawned) {
 
 	if (randomNumber == 0) {
 		gender = "male";
-		chosenName = prompt("Please name your new little boy", "Tinus");
+		chosenName = prompt("Please name your new little boy", "Adam");
 	} else {
 		gender = "female";
-		chosenName = prompt("Please name your new little girl", "girlname");
+		chosenName = prompt("Please name your new little girl", "Eve");
 	}
 	if (chosenName == null) {
 		return;
@@ -85,9 +84,9 @@ function makePersonDiv(person) {
 	const select = document.createElement("select");
 	select.className = "form-control";
 
-	for (var i = 0; i < options.length; i++) {
+	for (var i = 0; i < person.activities.length; i++) {
 		const option = document.createElement("option");
-		optionText = document.createTextNode(options[i]);
+		optionText = document.createTextNode(person.activities[i]);
 		option.appendChild(optionText);
 		select.appendChild(option);
 	}
@@ -137,6 +136,10 @@ function makeKids(person) {
 }
 
 function killSelf(person) {
+	if (person.age < 4) {
+		appendTextConsole("When is a young kid like " + person.name + " not trying to kill " + himselfOrHerself(person));
+		return;
+	}
 	appendTextConsole("This is incredibly sad, " + person.name + " just took " + hisOrHer(person) + " life.");
 	i = persons.indexOf(person);
 	delete persons[i];
@@ -150,7 +153,7 @@ function isAdult(person) {
 function updateValueForPerson(person, daysChanged) {
 	calculateAge(person);
 	const childNodes = person.div.childNodes;
-	const activity = childNodes[7].value;
+	const activity = childNodes[7].value.replace(" ", "");
 	if (daysChanged > 0) {
 		const funcToRun = eval("calc" + activity + "(person, daysChanged)");
 	}
@@ -159,6 +162,16 @@ function updateValueForPerson(person, daysChanged) {
 	childNodes[4].innerHTML = "Intelligence: " + person.intelligence;
 	childNodes[5].innerHTML = "Happiness: " + person.happiness;
 	childNodes[6].innerHTML = "Age: " + person.age;
+}
+
+function himselfOrHerself(person) {
+	let wordToUse;
+	if (person.gender == "male") {
+		wordToUse = "himself";
+	} else {
+		wordToUse = "herself";
+	}
+	return wordToUse;
 }
 
 function heOrShe(person) {
@@ -221,7 +234,14 @@ function startTimer(secondsInADay) {
 function appendTextConsole(text) {
 	const console = document.getElementById("console");
 	console.value += "\n" + text;
+	if (console.value.length > 800) {
+		console.value = console.value.replace(/^.*\n/g,""); 
+		// This removes the first line in the console.
+	}	
 	console.scrollTop = console.scrollHeight;
+}
+function test(csval) {
+	console.log(csval);
 }
 
 function hax() {
