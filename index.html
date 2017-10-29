@@ -21,13 +21,17 @@
 					<textarea id="console" readonly=""></textarea>
 				</div>
 				<div id="btnDateProgress" class="col-xs-6">
-					<button class="btn btn-primary" type="button" onclick="addPerson()">
+					<button class="btn btn-primary" type="button" onclick="addPerson(true)">
 					Add a person
+					</button>
+					<button class="btn btn-success" type="button" onclick="nextDay()">
+					Skip a day
 					</button>
 					<button class="btn btn-danger" type="button" onclick="deleteProgress()">
 					Delete EVERYTHING
 					</button>
 					<h4 id="date">xx-xx-xxxx</h4>
+					<h4 id="personsLeft">Persons left: 5</h4>
 					<div class="progress">
 						<div id="progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 							<span class="sr-only">0% Complete</span>

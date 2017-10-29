@@ -4,6 +4,7 @@ let options = ["Education", "Work", "Gamble", "Socialise"]
 let persons = [];
 let personToMakeKidsWith;
 let savingEnabled = true;
+let personsLeft = 5;
 
 let date = new Date();
 startTimer(5);
@@ -12,7 +13,17 @@ appendTextConsole("Welcome to Decisions Decisions.");
 loadProgress();
 showDate();
 
-function addPerson() {
+function addPerson(spawned) {
+	if (spawned) {
+		if (personsLeft < 1) {
+			appendTextConsole("You can't spawn any more people.")
+			return;
+		}
+		else {
+			personsLeft--;
+			showPersonsLeft();
+		}
+	}
 	let gender;
 	let chosenName;
 	const randomNumber = Math.floor(Math.random() * 2);
@@ -114,7 +125,7 @@ function makeKids(person) {
 		if (person.gender != personToMakeKidsWith.gender) {
 			if (person.age >= 16 && personToMakeKidsWith.age >= 16) {
 				appendTextConsole("Successfully made a kid.")
-				addPerson();
+				addPerson(false);
 			} else {
 				appendTextConsole("Grow up kids.");
 			}
@@ -176,15 +187,20 @@ function updateValues(daysChanged) {
 	});
 }
 
+function showPersonsLeft() {
+	const personsLeftH4 = document.getElementById("personsLeft");
+		personsLeftH4.innerHTML = "Persons left: " + personsLeft;	
+}
+
 function showDate() {
 	const dateH4 = document.getElementById("date");
-	dateH4.innerHTML = date.toLocaleDateString("nb-NO");
+	dateH4.innerHTML = "Date: " + date.toLocaleDateString("nb-NO");
 }
+
 function nextDay() {
 	date.setDate(date.getDate() + 1);
 	showDate();
 	updateValues(1);
-	saveProgress();
 }
 
 function startTimer(secondsInADay) {
@@ -194,6 +210,7 @@ function startTimer(secondsInADay) {
 	int = setInterval(function() {
 		if (time - 1 == max) {
 			nextDay();
+			saveProgress();
 			time = 0;
 		} else {
 			bar.style.width = Math.floor(100 * time++ / max) + '%';
@@ -224,6 +241,10 @@ function saveProgress() {
 	localStorage.setItem("date", date.getTime());
 
 	localStorage.setItem("persons", JSON.stringify(persons));
+
+	localStorage.setItem("personsLeft", personsLeft);
+
+
 }
 function loadProgress() {
 	const loadedDate = localStorage.getItem("date");
@@ -248,10 +269,18 @@ function loadProgress() {
 	} else {
 		appendTextConsole("Could not find persons file.");
 	}
+
+
+	const loadedPersonsLeft = parseInt(localStorage["personsLeft"]);
+	if (!isNaN(loadedPersonsLeft)) {
+		personsLeft = loadedPersonsLeft;
+		showPersonsLeft();
+	}
 }
 
 function deleteProgress() {
 	localStorage.removeItem("date");
 	localStorage.removeItem("persons");
+	localStorage.removeItem("personsLeft");
 	location.reload();
 }
