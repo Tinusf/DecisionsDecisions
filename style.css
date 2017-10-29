@@ -52,6 +52,10 @@ html, body {
 @media (max-width: 576px) {
 	/* For små skjermer. */
 	#allPersons {
-		max-height: 55%;
+		max-height: 50%;
 	}
+	#consoleDiv {
+		height: 170px;
+	}
+
 }
