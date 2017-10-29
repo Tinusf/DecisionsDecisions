@@ -1,5 +1,8 @@
 //TODO: lag en date som øker med en dag hver gang progress bar er 100%
 const allPersons = document.getElementById("allPersons");
+const consoleDiv = document.getElementById("console");
+const progressBar = document.getElementById("progress");
+
 let persons = [];
 let personToMakeKidsWith;
 let savingEnabled = true;
@@ -25,9 +28,7 @@ function addPerson(spawned) {
 	}
 	let gender;
 	let chosenName;
-	const randomNumber = Math.floor(Math.random() * 2);
-
-	if (randomNumber == 0) {
+	if (randomFiftyFifty()) {
 		gender = "male";
 		chosenName = prompt("Please name your new little boy", "Adam");
 	} else {
@@ -146,10 +147,6 @@ function killSelf(person) {
 	person.div.remove();
 }
 
-function isAdult(person) {
-	return person.age >= 18;
-}
-
 function updateValueForPerson(person, daysChanged) {
 	calculateAge(person);
 	const childNodes = person.div.childNodes;
@@ -164,35 +161,7 @@ function updateValueForPerson(person, daysChanged) {
 	childNodes[6].innerHTML = "Age: " + person.age;
 }
 
-function himselfOrHerself(person) {
-	let wordToUse;
-	if (person.gender == "male") {
-		wordToUse = "himself";
-	} else {
-		wordToUse = "herself";
-	}
-	return wordToUse;
-}
 
-function heOrShe(person) {
-	let wordToUse;
-	if (person.gender == "male") {
-		wordToUse = "he";
-	} else {
-		wordToUse = "she";
-	}
-	return wordToUse;
-}
-
-function hisOrHer(person) {
-	let wordToUse;
-	if (person.gender == "male") {
-		wordToUse = "his";
-	} else {
-		wordToUse = "her";
-	}
-	return wordToUse;
-}
 
 function updateValues(daysChanged) {
 	persons.forEach(function(element) {
@@ -202,7 +171,7 @@ function updateValues(daysChanged) {
 
 function showPersonsLeft() {
 	const personsLeftH4 = document.getElementById("personsLeft");
-		personsLeftH4.innerHTML = "Persons left: " + personsLeft;	
+	personsLeftH4.innerHTML = "Persons left: " + personsLeft;	
 }
 
 function showDate() {
@@ -217,7 +186,6 @@ function nextDay() {
 }
 
 function startTimer(secondsInADay) {
-	let bar = document.getElementById("progress");
 	time = 0;
 	max = secondsInADay;
 	int = setInterval(function() {
@@ -226,28 +194,18 @@ function startTimer(secondsInADay) {
 			saveProgress();
 			time = 0;
 		} else {
-			bar.style.width = Math.floor(100 * time++ / max) + '%';
+			progressBar.style.width = Math.floor(100 * time++ / max) + '%';
 		}
 	}, 1000);
 }
 
 function appendTextConsole(text) {
-	const console = document.getElementById("console");
-	console.value += "\n" + text;
-	if (console.value.length > 800) {
-		console.value = console.value.replace(/^.*\n/g,""); 
+	consoleDiv.value += "\n" + text;
+	if (consoleDiv.value.length > 800) {
+		consoleDiv.value = consoleDiv.value.replace(/^.*\n/g,""); 
 		// This removes the first line in the console.
 	}	
-	console.scrollTop = console.scrollHeight;
-}
-function test(csval) {
-	console.log(csval);
-}
-
-function hax() {
-	date.setDate(date.getDate() + 365);
-	showDate();
-	updateValues(365);
+	consoleDiv.scrollTop = consoleDiv.scrollHeight;
 }
 
 function checkStorage() {

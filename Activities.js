@@ -3,15 +3,15 @@ function updateLegalActivities(person) {
 	if (person.age < 2) {
 		legalActivities.push("Kindergarten", "Cry", "Poop", "Crawl");
 	} else if (person.age < 6) {
-		legalActivities.push("Kindergarten", "Play Video Games", "Walk", "Annoy Parents");
+		legalActivities.push("Kindergarten", "Video Games", "Walk", "Annoy Parents");
 	} else if (person.age < 13) {
-		legalActivities.push("Elementary School", "Play Video Games", "Annoy Parents", "Stupid Shit");
+		legalActivities.push("Elementary School", "Video Games", "Annoy Parents", "Stupid Shit");
 	} else if (person.age < 16) {
-		legalActivities.push("Middle School", "Socialise", "Play Video Games", "Annoy Parents", "Drugs", "Stupid Shit");
+		legalActivities.push("Middle School", "Socialise", "Video Games", "Annoy Parents", "Drugs", "Stupid Shit", "Criminal Activities");
 	} else if (person.age < 19) {
-		legalActivities.push("High School", "Work", "Socialise", "Play Video Games", "Annoy Parents", "Gamle", "Drugs", "Stupid Shit");
+		legalActivities.push("High School", "Work", "Socialise", "Video Games", "Annoy Parents", "Gamble", "Drugs", "Stupid Shit", "Criminal Activities");
 	} else {
-		legalActivities.push("Higher Education", "Work", "Socialise", "Play Video Games", "Gamle", "Drugs", "Stupid Shit");
+		legalActivities.push("Higher Education", "Work", "Socialise", "Video Games", "Gamble", "Drugs", "Stupid Shit", "Criminal Activities");
 	}
 
 	person.activities = legalActivities;
@@ -33,6 +33,10 @@ function updateActivitySelect(person) {
 	}
 }
 
+function activity(person, daysChanged) {
+
+}
+
 function calcKindergarten(person, daysChanged) {
 	calcEducation(person, daysChanged);
 }
@@ -46,7 +50,7 @@ function calcCry(person, daysChanged) {
 }
 
 function calcPoop(person, daysChanged) {
-	appendTextConsole("Why doesn't " + person.name + " ever stop pooping? I don't understand. And why does this make " + heOrShe(person) + " happier?");
+	appendTextConsole("Why doesn't " + person.name + " ever stop pooping? I don't understand. And why is " + heOrShe(person) + " happier?");
 }
 
 function calcWalk(person, daysChanged) {
