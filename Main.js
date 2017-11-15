@@ -36,6 +36,7 @@ function addPerson(spawned) {
 		chosenName = prompt("Please name your new little girl", "Eve");
 	}
 	if (chosenName == null) {
+		appendTextConsole("You had an abortion and killed the kid.");
 		return;
 	}
 	let person = new Person(chosenName, gender);
